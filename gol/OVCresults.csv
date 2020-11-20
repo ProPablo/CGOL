@@ -1,0 +1,14 @@
+OC: Stock No bit packing, size: 4096,,,OC (+MHz),Time
+0,0.70186,,,Stock,0.70186
+OC: +100CORE No bit packing, size: 4096,,,100CORE,0.713576
+0,0.713576,,,150CORE,0.692741
+OC: +150CORE No bit packing, size: 4096,,,200CORE,0.686869
+0,0.692741,,,250CORE,0.721297
+OC: +200CORE No bit packing, size: 4096,,,300CORE,0.682287
+0,0.686869,,,50MEM,0.759627
+OC: +250CORE No bit packing, size: 4096,,,,
+0,0.721297,,,,
+OC: +300CORE No bit packing, size: 4096,,,,
+0,0.682287,,,,
+OC: +50MemoryClock No bit packing, size: 4096,,,,
+0,0.759627,,,,

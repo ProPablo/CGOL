@@ -1,0 +1,14 @@
+OC: Stock No bit packing, size: 4096,,,Size,Sequential Time,Parallel time
+0,23.1983,,,256,0.090785,0.0046808
+OC: Stock No bit packing, size: 4096,,,512,0.358401,0.012533
+0,23.1942,,,1024,1.44107,0.0507667
+OC: Stock No bit packing, size: 4096,,,2048,5.85612,0.192726
+0,23.1423,,,4096,23.1983,0.733965
+OC: Stock No bit packing, size: 2048,,,,,
+0,5.85612,,,,,
+OC: Stock No bit packing, size: 1024,,,,,
+0,1.44107,,,,,
+OC: Stock No bit packing, size: 512,,,,,
+0,0.358401,,,,,
+OC: Stock No bit packing, size: 256,,,,,
+0,0.090785,,,,,
