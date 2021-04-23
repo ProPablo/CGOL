@@ -6,7 +6,7 @@
 
 #define generations 3
 //Has to be a multiple of 32
-#define N 2048
+#define N 320
 
 #define pixelSize 2
 #define frameTime 0.0005f

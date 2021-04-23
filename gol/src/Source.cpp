@@ -97,7 +97,7 @@ void BPgameLoop(uint32_t* data, int currentGen)
 	{
 		for (int x = 0; x < N; x++)
 		{
-			uint32_t cell = data[(((currentGen - 1) * N + y) * N + x )/ BP];
+			uint32_t cell = data[(((currentGen - 1) * N + y) * N + x) / BP];
 			bool isAlive = (cell & (1 << (x % 32))) != 0;
 			int totalNeighbours = 0;
 			for (int i = (y - 1 > 0) ? y - 1 : 0; i < ((y + 2 < N) ? y + 2 : N); i++)
@@ -110,13 +110,14 @@ void BPgameLoop(uint32_t* data, int currentGen)
 			bool currentStatus = (isAlive && !(totalNeighbours < 2 || totalNeighbours > 3)) || (totalNeighbours == 3);
 
 			//This is fine to do because array is initialised to 0 (not reusing array)
-			data[((currentGen * N + y) * N + x )/ BP] |= (currentStatus << (x % 32));
+			data[((currentGen * N + y) * N + x) / BP] |= (currentStatus << (x % 32));
 		}
 	}
 }
 
+#ifndef BP
 
-int mainTEST(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
 
 	bool* host_A = (bool*)malloc(sizeOfArray);
@@ -152,7 +153,7 @@ int mainTEST(int argc, char* argv[])
 	gen++;
 	Time("Finished generating Perlin");
 
-	
+
 
 #ifdef PARALLEL
 	Time(NULL);
@@ -160,7 +161,7 @@ int mainTEST(int argc, char* argv[])
 	{
 		runKernel(gen, device_A);
 	}
-	endCUDA<bool>(host_A, device_A);
+	endCUDA<bool>(host_A, device_A, sizeOfArray);
 	//out << timeline << "," << Time("Finishing time for parallel") << '\n';
 #else
 	Time(NULL);
@@ -183,10 +184,9 @@ int mainTEST(int argc, char* argv[])
 	std::cin >> input;
 	return 0;
 }
+#else
 
-
-
-int mainBP(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
 	uint32_t* host_A = (uint32_t*)malloc(sizeOfBP);
 	if (host_A == NULL)
@@ -206,7 +206,7 @@ int mainBP(int argc, char* argv[])
 		for (int j = 0; j < N; j++)
 		{
 			//Anywhere the actual indexing is required, i or j remain the same, only when indexing main array
-			host_A[((gen * N + i) * N + j) / 32] |= ((noise((double)j * OFFSET_SCALE, (double)i * OFFSET_SCALE, 0) <= INCLINITATION) << (j%32));
+			host_A[((gen * N + i) * N + j) / 32] |= ((noise((double)j * OFFSET_SCALE, (double)i * OFFSET_SCALE, 0) <= INCLINITATION) << (j % 32));
 		}
 	gen++;
 
@@ -219,7 +219,7 @@ int mainBP(int argc, char* argv[])
 		runBP(gen, device_A);
 	}
 	std::cout << "Ended parallel";
-	endCUDA<uint32_t>(host_A, device_A);
+	endCUDA<uint32_t>(host_A, device_A, sizeOfBP);
 	//out << timeline << "," << Time("Finishing time for parallel") << '\n';
 #else
 	for (; gen < generations; gen++)
@@ -235,3 +235,7 @@ int mainBP(int argc, char* argv[])
 	if (demo.Construct(N, N, pixelSize, pixelSize, false, true))
 		demo.Start();
 }
+
+#endif // !BP
+
+

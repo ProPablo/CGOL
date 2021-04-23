@@ -33,7 +33,7 @@ T* initCUDA(T* host_A, int bufferSize)
 }
 
 template <class T>
-void endCUDA(T* host_A, T* device_A)
+void endCUDA(T* host_A, T* device_A, int bufferSize)
 {
 	cudaError_t cudaStatus;
 	cudaStatus = cudaGetLastError();
@@ -48,7 +48,7 @@ void endCUDA(T* host_A, T* device_A)
 		cudaFree(device_A);
 		exit(cudaStatus);
 	}
-	cudaStatus = cudaMemcpy(host_A, device_A, sizeOfArray, cudaMemcpyDeviceToHost);
+	cudaStatus = cudaMemcpy(host_A, device_A, bufferSize, cudaMemcpyDeviceToHost);
 	if (cudaStatus != cudaSuccess) {
 		std::cerr << "cudaMemcpy failed!";
 		cudaFree(device_A);

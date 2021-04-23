@@ -177,7 +177,7 @@ void GL_gameLoop(bool* prevGen, bool* nextGen, uchar4* gl_buffer)
 void seqRender() {
 
 }
-
+#ifdef OpenGL_DRAW
 int main(int argc, char* argv[])
 {
 	long gen = 0;
@@ -232,3 +232,4 @@ int main(int argc, char* argv[])
 	glfwTerminate();
 	//TODO: delete hostMEm
 }
+#endif

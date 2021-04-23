@@ -91,11 +91,11 @@ __global__ void BPKernel(uint32_t* data, int currentGen)
 
 	packing[tid] = currentStatus;
 
-	printf("x, y: %d, %d | status: %d\n", x, y, currentStatus);
+	//printf("x, y: %d, %d | status: %d\n", x, y, currentStatus);
 	//HERE all threads in block sync to submit the mask to the final Buffer
 	data[((currentGen * N + y) * N + x) / BP] = __ballot_sync(FULL_MASK, packing[tid]);
 	//https://stackoverflow.com/questions/39488441/how-to-pack-bits-efficiently-in-cuda/39488714#39488714
-	printf("afterwards: %d \n", data[((currentGen * N + y) * N + x) / BP]);
+	printf("x, y: % d, % d | status : %d, wasAlive: %d | total: %d\n", x, y, currentStatus, isAlive, data[((currentGen * N + y) * N + x) / BP]);
 }
 
 
